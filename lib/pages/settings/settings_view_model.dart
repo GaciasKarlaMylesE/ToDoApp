@@ -6,10 +6,9 @@ import 'package:todo/pages/settings/widgets/theme_bottom_sheet.dart';
 
 class SettingsViewModel extends ChangeNotifier {
   String _currentUserEmail = "";
-  String _changePasswordStatus = "";
+  
   String _deleteAccountStatus = "";
 
-  String? get changePasswordStatus => _changePasswordStatus;
 
   String? get deleteAccountStatus => _deleteAccountStatus;
 
@@ -20,19 +19,6 @@ class SettingsViewModel extends ChangeNotifier {
       context: context,
       builder: (context) => const ThemeBottomSheetWidget(),
     );
-  }
-
-  changePassword() async {
-    getCurrentUserEmail();
-    if (_currentUserEmail.isEmpty) {
-      return "failed";
-    } else {
-      _changePasswordStatus =
-          await FirebaseUtils.resetPassword(_currentUserEmail);
-      if (_changePasswordStatus.isEmpty) _changePasswordStatus = "invalid";
-    }
-    logout();
-    notifyListeners();
   }
 
   getCurrentUserEmail() {
